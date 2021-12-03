@@ -10,16 +10,16 @@ it works fine and the screen is displayed as it should.
 In overworld when first starting game, left mouse click to enter one of the worlds
 
 
-Return - toggles pause on and off while in game level
-Space - jump
-W - run forward
-D - turn right
-A - turn left
-Left Shift and W - run slighty faster
-I - pick up ham
-U - throw ham
-K - draw weapon
-J - Shoot weapon
+- Return - toggles pause on and off while in game level
+- Space - jump
+- W - run forward
+- D - turn right
+- A - turn left
+- Left Shift and W - run slighty faster
+- I - pick up ham
+- U - throw ham
+- K - draw weapon
+- J - Shoot weapon
 
 
 ## Attributes
