@@ -11,6 +11,7 @@ public class DevilBulldogEatState : DevilBulldogBaseState
         float timeStart = Time.time; 
         state.hamStateManager = state.ham.GetComponent<HamStateManager>();
         state.anim.SetTrigger("eat");
+        GameManager.Instance.snarl.Play();
         state.r.velocity = Vector3.zero;
     }
 

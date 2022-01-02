@@ -18,6 +18,7 @@ public class Bounce : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             Debug.Log("entered collision");
+            GameManager.Instance.trampolineJump.Play();
             r.AddForce(0f, 100f, 0f, ForceMode.Impulse);
         }
     }

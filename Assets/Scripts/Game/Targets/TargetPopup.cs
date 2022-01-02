@@ -6,6 +6,7 @@ public class TargetPopup : MonoBehaviour
 {
     Rigidbody r;
     HingeJoint hinge;
+    public AudioSource hit;
     public float forceStrength = 0.5f;
     bool popup = false;
     bool isDown = true;
@@ -51,7 +52,7 @@ public class TargetPopup : MonoBehaviour
         if (collision.gameObject.CompareTag("bullet"))
         {
             Debug.Log(isDown);
-            
+            GameManager.Instance.hitSquareTarget.Play();
             float rand = Random.Range(2f, 10f);
             isDown = true;
             popup = false;

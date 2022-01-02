@@ -6,5 +6,7 @@ public abstract class GameBaseState
 
     public abstract void UpdateState(GameManager state);
 
+    public abstract void ExitState(GameManager state);
+
    
 }

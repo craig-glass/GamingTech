@@ -6,6 +6,9 @@ public class CatClimbState : GameBaseState
 {
     public override void EnterState(GameManager state)
     {
+        state.mainScreenMusic.Stop();
+        state.dontFallMusic.Play();
+
         Debug.Log("CatClimb State");
         if (!state.paused)
         {
@@ -23,5 +26,10 @@ public class CatClimbState : GameBaseState
         {
             state.SwitchState(state.GamePausedState);   // Enter paused state 
         }
+    }
+
+    public override void ExitState(GameManager state)
+    {
+        state.dontFallMusic.Stop();
     }
 }

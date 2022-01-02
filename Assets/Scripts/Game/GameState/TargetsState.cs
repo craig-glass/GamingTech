@@ -6,6 +6,8 @@ public class TargetsState : GameBaseState
 {
     public override void EnterState(GameManager state)
     {
+        state.mainScreenMusic.Stop();
+        state.targetPracticeMusic.Play();
         Debug.Log("Targets State");
         if (!state.paused)
         {
@@ -23,5 +25,10 @@ public class TargetsState : GameBaseState
         {
             state.SwitchState(state.GamePausedState);       // Enter paused state
         }
+    }
+
+    public override void ExitState(GameManager state)
+    {
+        state.targetPracticeMusic.Stop();
     }
 }

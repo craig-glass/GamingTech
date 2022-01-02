@@ -57,5 +57,9 @@ public class SettingsState : GameBaseState
         
     }
 
-    
+    public override void ExitState(GameManager state)
+    {
+
+    }
+
 }

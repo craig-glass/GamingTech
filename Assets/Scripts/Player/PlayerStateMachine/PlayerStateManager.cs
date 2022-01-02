@@ -22,11 +22,15 @@ public class PlayerStateManager : MonoBehaviour
     public bool holdingGun = false;
     public bool throwHam = false;
 
+    public Vector3 startPos;
+
     [SerializeField]
     GameObject bullet, bulletSpawnPoint, hamObject, holdHam, gun, gunMag;
     public float speed = 4f;
     float rotationForce = 70f;
     public float sprintSpeed;
+
+    // Effects
 
     private void Awake()
     {
@@ -84,6 +88,7 @@ public class PlayerStateManager : MonoBehaviour
             {
                 Debug.Log("space pressed");
                 anim.SetTrigger("jumped");
+                GameManager.Instance.jump.Play();
                 hasJumped = true;
                 onGround = false;
             }
@@ -93,6 +98,7 @@ public class PlayerStateManager : MonoBehaviour
                 if (ham.canPickUp)
                 {
                     ham.pickUpHam = true;
+                    ham.gameObject.layer = 7;
                 }
 
             }
@@ -111,7 +117,7 @@ public class PlayerStateManager : MonoBehaviour
 
             if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.W))
             {
-                sprintSpeed = speed + 1f;
+                sprintSpeed = speed + 4f;
                 anim.SetFloat("speed", sprintSpeed);
                 transform.Translate(0f, 0f, Input.GetAxis("Vertical") * sprintSpeed * Time.deltaTime);
 
@@ -121,6 +127,7 @@ public class PlayerStateManager : MonoBehaviour
             {
                 anim.SetTrigger("shoot");
                 Instantiate(bullet, bulletSpawnPoint.transform.position, transform.rotation);
+                GameManager.Instance.gunshot.Play();
             }
             if (Input.GetKeyDown(KeyCode.K) && !hamIsPickedUp && gun)
             {
@@ -157,5 +164,10 @@ public class PlayerStateManager : MonoBehaviour
         state.EnterState(this);
     }
 
+    public void Footstep()
+    {
+        if (!hasJumped)
+            GameManager.Instance.footstep.Play();
+    }
     
 }

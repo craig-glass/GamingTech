@@ -14,4 +14,9 @@ public class OverworldState : GameBaseState
     {
 
     }
+
+    public override void ExitState(GameManager state)
+    {
+
+    }
 }

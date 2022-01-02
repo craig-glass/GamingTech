@@ -11,6 +11,8 @@ public class DevilBulldogStateManager : MonoBehaviour
     public DevilBulldogFightState FightState = new DevilBulldogFightState();
     public DevilBulldogEatState EatState = new DevilBulldogEatState();
     public DevilBulldogGotoHamState GotoHamState = new DevilBulldogGotoHamState();
+    public DevilBulldogPatrolState PatrolState = new DevilBulldogPatrolState();
+
 
     public HamStateManager hamStateManager;
     
@@ -19,10 +21,14 @@ public class DevilBulldogStateManager : MonoBehaviour
     public Animator anim;
     public GameObject ham;
     public Rigidbody r;
+    public GameObject[] waypoints;
+    public GameObject firstWaypoint;
+    public int currentWP;
+    public Vector3 startPos;
 
     public bool chase = false;
     public bool eat = false;
-
+    public float timeInState;
 
     public float timeLeft = 20f;
 
@@ -32,10 +38,13 @@ public class DevilBulldogStateManager : MonoBehaviour
         player = GameObject.Find("Player");
         r = GetComponent<Rigidbody>();
         r.velocity = Vector3.zero;
+        firstWaypoint = transform.parent.GetChild(0).gameObject;
     }
     // Start is called before the first frame update
     void Start()
     {
+        waypoints = GameObject.FindGameObjectsWithTag("waypoint");
+        startPos = transform.position;
         currentState = IdleState;
         currentState.EnterState(this);
     }
@@ -50,6 +59,7 @@ public class DevilBulldogStateManager : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("bullet"))
         {
+            Debug.Log("hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiit");
             anim.SetTrigger("hit");
         }
     }

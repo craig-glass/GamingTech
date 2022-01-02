@@ -150,6 +150,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.x
       value: 37.313
       objectReference: {fileID: 0}
+    - target: {fileID: 2780124244858306825, guid: 5451e87abac36694cb2222b6a93333cf, type: 3}
+      propertyPath: jump
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2780124244858306825, guid: 5451e87abac36694cb2222b6a93333cf, type: 3}
+      propertyPath: footstep
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2780124244858306830, guid: 5451e87abac36694cb2222b6a93333cf, type: 3}
       propertyPath: jumpForce
       value: 50

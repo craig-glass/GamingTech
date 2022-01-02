@@ -15,4 +15,9 @@ public class MainScreenState : GameBaseState
     {
 
     }
+
+    public override void ExitState(GameManager state)
+    {
+
+    }
 }

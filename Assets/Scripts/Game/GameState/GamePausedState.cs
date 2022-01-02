@@ -33,4 +33,16 @@ public class GamePausedState : GameBaseState
             
         }
     }
+
+    public override void ExitState(GameManager state)
+    {
+        switch (activeScene.name)
+        {
+            case "World1": state.beatTheDogsMusic.Stop(); break;
+            case "CatClimb": state.dontFallMusic.Stop(); break;
+            case "Targets": state.targetPracticeMusic.Stop(); break;
+        }
+
+        state.mainScreenMusic.Play();
+    }
 }

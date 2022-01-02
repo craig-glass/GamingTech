@@ -11,6 +11,10 @@ TagManager:
   - floor
   - ham
   - togglegroup
+  - waypoint
+  - Stand
+  - Bench
+  - Bin
   layers:
   - Default
   - TransparentFX
@@ -31,7 +35,7 @@ TagManager:
   - Rope_Part
   - Bullet
   - Target
-  - 
+  - IgnoreRaycast
   - 
   - 
   - 

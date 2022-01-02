@@ -23,11 +23,12 @@ public class FireBullet : MonoBehaviour
     }
 
     private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject)
+    {        
+        if (collision.gameObject.CompareTag("devilbulldog"))
         {
-            Destroy(gameObject);
+            Debug.Log("................................");
         }
+        Destroy(gameObject);        
     }
 
     IEnumerator DestroyBullet()

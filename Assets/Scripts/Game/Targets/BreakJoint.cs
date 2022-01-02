@@ -27,6 +27,7 @@ public class BreakJoint : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("bullet"))
         {
+            GameManager.Instance.hitRoundTarget.Play();
             gameObject.transform.SetParent(null, true);
             transform.DetachChildren();
         }

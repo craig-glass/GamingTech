@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
     public SettingsState SettingsState = new SettingsState();
 
     public SceneManager sceneManager;
+    public GameObject player;
 
     // Setting game parameters
     public int lives = 3;
@@ -54,6 +55,19 @@ public class GameManager : MonoBehaviour
     public float countdownTime = 120f;
     public float sensitivity = 1f;
     public int score = 0;
+
+    // Audio
+    public AudioSource mainScreenMusic;
+    public AudioSource dontFallMusic;
+    public AudioSource beatTheDogsMusic;
+    public AudioSource targetPracticeMusic;
+    public AudioSource snarl;
+    public AudioSource footstep;
+    public AudioSource jump;
+    public AudioSource gunshot;
+    public AudioSource hitRoundTarget;
+    public AudioSource hitSquareTarget;
+    public AudioSource trampolineJump;
 
     private void Awake()
     {
@@ -128,6 +142,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("entered goto overworld");
         Time.timeScale = 1;
         paused = false;
+        currentState.ExitState(this);
         SwitchState(OverworldState);
     }
 
@@ -136,6 +151,7 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1;
         paused = false;
+        currentState.ExitState(this);
         SwitchState(MainScreenState);
     }
     

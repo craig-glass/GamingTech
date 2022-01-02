@@ -503,6 +503,9 @@ MonoBehaviour:
   gunMag: {fileID: 0}
   speed: 4
   sprintSpeed: 0
+  gunshot: {fileID: 0}
+  footstep: {fileID: 0}
+  jump: {fileID: 0}
 --- !u!195 &122557256
 NavMeshAgent:
   m_ObjectHideFlags: 0
