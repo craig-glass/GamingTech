@@ -6,30 +6,41 @@ public class DevilBulldogHuntState : DevilBulldogBaseState
 {
     public override void EnterState(DevilBulldogStateManager state)
     {
-        Debug.Log("Entered hunt state");
+        Debug.Log("---------------------------------------------------------------------");
+        World1State.devilBulldogsChasing.Add(state.gameObject);
         state.anim.SetBool("walk", true);
         state.agent.isStopped = false;
     }
     public override void UpdateState(DevilBulldogStateManager state)
     {
-        if (state.chase && !GameManager.Instance.gameOver)
+
+        foreach (GameObject h in state.ham)
         {
-            state.agent.SetDestination(state.player.transform.position); 
-            if (state.eat)
+            if (Vector3.Distance(state.transform.position, h.transform.position) < 10f)
             {
-                state.SwitchState(state.GotoHamState);
+                if (state.CanSeeHam(h))
+                    state.hamCloseBy = h;
             }
-          
+
         }
-        else
+        if (state.hamCloseBy && state.CanSeeHam(state.hamCloseBy) &&     
+            !state.playerStateManager.hamIsPickedUp && !state.hamCloseBy.GetComponent<HamStateManager>().allGone)
         {
-            state.agent.isStopped = true;
-            state.SwitchState(state.IdleState);
+            World1State.devilBulldogsChasing.Remove(state.gameObject);
+            state.SwitchState(state.GotoHamState);
         }
-        
+           
+
+        if (state.player.GetComponent<CapsuleCollider>().enabled == false)
+        {
+            World1State.devilBulldogsChasing.Remove(state.gameObject);
+            state.SwitchState(state.PatrolState);
+        }
+        state.agent.SetDestination(state.player.transform.position);
+
     }
     public override void OnCollisionEnter(DevilBulldogStateManager state, Collision collision)
     {
-       
+        
     }
 }

@@ -69,6 +69,8 @@ public class GameManager : MonoBehaviour
     public AudioSource hitSquareTarget;
     public AudioSource trampolineJump;
 
+    public GameObject bulldogCount;
+
     private void Awake()
     {
         _instance = this;

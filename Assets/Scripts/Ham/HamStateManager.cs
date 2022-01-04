@@ -11,7 +11,10 @@ public class HamStateManager : MonoBehaviour
     public Ham1State Ham1State = new Ham1State();
     public HamBoneState HamBoneState = new HamBoneState();
 
-    public bool ateSome = false;
+    public bool eating = false;
+    public bool inBin = true;
+    public float timeLeft = 10f;
+    public bool allGone = false;
 
     // Start is called before the first frame update
     void Start()

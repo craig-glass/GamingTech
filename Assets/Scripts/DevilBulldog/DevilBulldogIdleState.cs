@@ -7,28 +7,30 @@ public class DevilBulldogIdleState : DevilBulldogBaseState
 
     public override void EnterState(DevilBulldogStateManager state)
     {
-        Debug.Log("Entered DevilBulldogIdleState");
+        Debug.Log("idel");
         state.anim.SetBool("walk", false);
         state.timeInState = Random.Range(3.0f, 15.0f);
     }
     public override void UpdateState(DevilBulldogStateManager state)
     {
-
-        if (state.chase && !GameManager.Instance.gameOver)
+        if (Vector3.Distance(state.transform.position, state.player.transform.position) < 10f && state.CanSeePlayer())
         {
-            if (state.CanSeePlayer())
+            state.SwitchState(state.HuntState);
+        }
+
+        foreach (GameObject h in state.ham)
+        {
+            if (Vector3.Distance(state.transform.position, h.transform.position) < 10f)
             {
-                Debug.Log("can see player");
-                state.SwitchState(state.HuntState);
-
+                if (state.CanSeeHam(h))
+                    state.hamCloseBy = h;
             }
+
         }
-        
-        if (state.eat && state.CanSeeHam())
-        {
-            Debug.Log("can see ham");
+        if (state.hamCloseBy && state.CanSeeHam(state.hamCloseBy) && 
+            !state.hamCloseBy.GetComponent<HamStateManager>().allGone && 
+            !state.playerStateManager.hamIsPickedUp)
             state.SwitchState(state.GotoHamState);
-        }
 
         state.timeInState -= Time.deltaTime;
 

@@ -11,9 +11,17 @@ public class HamFullState : HamBaseState
 
     public override void UpdateState(HamStateManager state)
     {
-       if (state.ateSome)
+       if (state.eating)
         {
-            state.SwitchState(state.Ham3State);
+            if (state.timeLeft > 0)
+            {
+                state.timeLeft -= Time.deltaTime;
+            }
+            else
+            { 
+                state.SwitchState(state.Ham3State);
+            }
+            
         }
     }
 }

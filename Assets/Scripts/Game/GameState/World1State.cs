@@ -1,13 +1,20 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 
 public class World1State : GameBaseState
 {
+    // Devil Bulldogs
+    public static List<GameObject> devilBulldogs = new List<GameObject>();
+    public static List<GameObject> devilBulldogsChasing = new List<GameObject>();
+
     public override void EnterState(GameManager state)
     {
+        
         state.mainScreenMusic.Stop();
         state.beatTheDogsMusic.Play();
-        Debug.Log("World1 State");
         if (!state.paused)
         {
             state.SceneLoad("World1");
@@ -22,16 +29,14 @@ public class World1State : GameBaseState
 
     public override void UpdateState(GameManager state)
     {
-      if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Return))
         {
-            Debug.Log("entered pause return");
             state.SwitchState(state.GamePausedState);       // Enter paused state
         }
     }
 
     public override void ExitState(GameManager state)
     {
-        Debug.Log("exit state");
         state.beatTheDogsMusic.Stop();
     }
 }

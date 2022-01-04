@@ -54,7 +54,6 @@ public class GOAPPlanner
 
         if (!success)
         {
-            Debug.Log("no plan!!");
             return null;
         }
 

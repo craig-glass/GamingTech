@@ -8,14 +8,32 @@ public class DevilBulldogPatrolState : DevilBulldogBaseState
 
     public override void EnterState(DevilBulldogStateManager state)
     {
-        Debug.Log("Entered Patrol State");
+        Debug.Log("patrolling");
         state.anim.SetBool("walk", true);
         state.timeInState = Random.Range(3.0f, 15.0f);
         targetPos = state.firstWaypoint.transform.position;
     }
 
     public override void UpdateState(DevilBulldogStateManager state)
-    {       
+    {
+        if (Vector3.Distance(state.transform.position, state.player.transform.position) < 10f && state.CanSeePlayer())
+        {
+            state.SwitchState(state.HuntState);
+        }
+
+        foreach (GameObject h in state.ham)
+        {
+            if (Vector3.Distance(state.transform.position, h.transform.position) < 10f)
+            {
+                if (state.CanSeeHam(h))
+                    state.hamCloseBy = h;
+            }
+
+        }
+        if (state.hamCloseBy && state.CanSeeHam(state.hamCloseBy) && 
+            !state.hamCloseBy.GetComponent<HamStateManager>().allGone &&
+            !state.playerStateManager.hamIsPickedUp)
+            state.SwitchState(state.GotoHamState);
 
         if (Vector3.Distance(state.transform.position, targetPos) < 3.0f)
         {
@@ -28,7 +46,6 @@ public class DevilBulldogPatrolState : DevilBulldogBaseState
             state.currentWP = 0;
         }
 
-        //state.transform.LookAt(state.waypoints[state.currentWP].transform.position);
         Quaternion lookatWP = Quaternion.LookRotation(targetPos - state.transform.position);
         state.transform.rotation = Quaternion.Slerp(state.transform.rotation, lookatWP, 8.0f * Time.deltaTime);
         state.transform.Translate(0f, 0f, 4.0f * Time.deltaTime);
@@ -38,15 +55,9 @@ public class DevilBulldogPatrolState : DevilBulldogBaseState
         if (state.timeInState <= 0)
             state.SwitchState(state.IdleState);
 
-        if (state.chase && !GameManager.Instance.gameOver)
-        {
-            if (state.CanSeePlayer())
-            {
-                Debug.Log("can see player");
-                state.SwitchState(state.HuntState);
-
-            }
-        }
+        
+        
+        
 
     }
 

@@ -7,32 +7,23 @@ public class DevilBulldogEatState : DevilBulldogBaseState
 {
     public override void EnterState(DevilBulldogStateManager state)
     {
-        Debug.Log("Entered eat state");
-        float timeStart = Time.time; 
-        state.hamStateManager = state.ham.GetComponent<HamStateManager>();
+        
+        state.hamStateManager = state.hamCloseBy.GetComponent<HamStateManager>();
         state.anim.SetTrigger("eat");
         GameManager.Instance.snarl.Play();
         state.r.velocity = Vector3.zero;
+        state.hamStateManager.eating = true;
     }
 
     public override void UpdateState(DevilBulldogStateManager state)
     {
-       if (!state.hamStateManager.ateSome)
+        if (state.hamStateManager.allGone)
         {
-            if (state.timeLeft > 0)
-            {
-                state.timeLeft -= Time.deltaTime;
-            }
-            else
-            {
-                state.timeLeft = 0;
-                Debug.Log("ate some!!");
-                state.hamStateManager.ateSome = true;
-            }
-            
-            
+            Debug.Log("all gone");
+            state.agent.ResetPath();
+            state.SwitchState(state.PatrolState);
         }
-       
+              
     }
 
     public override void OnCollisionEnter(DevilBulldogStateManager state, Collision collision)

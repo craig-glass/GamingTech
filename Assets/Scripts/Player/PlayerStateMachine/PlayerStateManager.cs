@@ -10,11 +10,13 @@ public class PlayerStateManager : MonoBehaviour
     public PlayerRunState RunState = new PlayerRunState();
     public PlayerJumpState JumpState = new PlayerJumpState();
     public PlayerSprintState SprintState = new PlayerSprintState();
+    public PlayerDeathState DeathState = new PlayerDeathState();
 
     public Animator anim;
     public GameObject playerObject;
     float jumpForce = 50f;
     public Rigidbody r;
+    public CapsuleCollider collider;
     public bool hasJumped = false;
     public bool onGround = true;
     public Ham ham;
@@ -29,6 +31,9 @@ public class PlayerStateManager : MonoBehaviour
     public float speed = 4f;
     float rotationForce = 70f;
     public float sprintSpeed;
+    bool knockback = false;
+    HealthBar healthBar;
+    bool isDead = false;
 
     // Effects
 
@@ -36,6 +41,7 @@ public class PlayerStateManager : MonoBehaviour
     {
         r = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
+        collider = GetComponent<CapsuleCollider>();
     }
 
     // Start is called before the first frame update
@@ -43,6 +49,7 @@ public class PlayerStateManager : MonoBehaviour
     {
         currentState = IdleState;
         currentState.EnterState(this);
+        healthBar = GetComponent<HealthBar>();
     }
 
     private void FixedUpdate()
@@ -59,17 +66,29 @@ public class PlayerStateManager : MonoBehaviour
             throwHam = false;
         }
 
+        if (knockback)
+        {
+            r.velocity *= -1;
+        }
+
         currentState.FixedUpdateState(this);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.Instance.currentState != GameManager.Instance.OverworldState)
+        
+        if (GameManager.Instance.currentState != GameManager.Instance.OverworldState && !isDead)
         {
             anim.SetFloat("vertical", Input.GetAxis("Vertical"));
 
             if (Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.LeftShift))
+            {
+                anim.SetFloat("speed", speed);
+                transform.Translate(0f, 0f, Input.GetAxis("Vertical") * speed * Time.deltaTime);
+            }
+            
+            if (Input.GetKey(KeyCode.S))
             {
                 anim.SetFloat("speed", speed);
                 transform.Translate(0f, 0f, Input.GetAxis("Vertical") * speed * Time.deltaTime);
@@ -126,11 +145,12 @@ public class PlayerStateManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.J) && holdingGun)
             {
                 anim.SetTrigger("shoot");
-                Instantiate(bullet, bulletSpawnPoint.transform.position, transform.rotation);
+                
                 GameManager.Instance.gunshot.Play();
             }
             if (Input.GetKeyDown(KeyCode.K) && !hamIsPickedUp && gun)
             {
+                Debug.Log("pick up gun");
                 gun.SetActive(!gun.activeSelf);
                 anim.SetBool("aiming", !anim.GetBool("aiming"));
                 holdingGun = !holdingGun;
@@ -145,9 +165,21 @@ public class PlayerStateManager : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("devilbulldog"))
         {
-            Debug.Log("Collided with devildog");
-            GameManager.Instance.LoseLife();
-            GameManager.Instance.SwitchState(GameManager.Instance.World1state);
+            if (!collision.gameObject.GetComponent<DevilBulldogStateManager>().isDead)
+            {
+                healthBar.DeductHealth();
+                Debug.Log("heath: " + healthBar.health);
+                if (healthBar.health <= 0)
+                    SwitchState(DeathState);
+
+                
+            }
+            
+        }
+
+        if (collider.gameObject.CompareTag("Bin"))
+        {
+            r.velocity = Vector3.zero;
         }
 
         if (collision.gameObject.CompareTag("floor"))
@@ -156,7 +188,9 @@ public class PlayerStateManager : MonoBehaviour
             Debug.Log("hasjumped = " + hasJumped);
         }
         currentState.OnCollisionEnter(this, collision);
+
     }
+
 
     public void SwitchState(PlayerBaseState state)
     {
@@ -170,4 +204,22 @@ public class PlayerStateManager : MonoBehaviour
             GameManager.Instance.footstep.Play();
     }
     
+   
+    IEnumerator Knockback()
+    {
+        knockback = true;
+
+        yield return new WaitForSeconds(1);
+
+        knockback = false;
+    }
+
+    public IEnumerator Death()
+    {
+        isDead = true;
+        anim.SetTrigger("Death");
+        collider.enabled = false;
+        yield return new WaitForSeconds(10);
+    }
+
 }

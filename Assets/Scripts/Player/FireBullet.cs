@@ -5,38 +5,22 @@ using UnityEngine;
 public class FireBullet : MonoBehaviour
 {
     [SerializeField]
-    float speed = 50f;
+    float speed = 300f;
     [SerializeField]
-    Rigidbody r;
+    public GameObject bulletPrefab;
+    public ParticleSystem muzzleFlash;
 
-    // Start is called before the first frame update
-    void Start()
+
+    private void Update()
     {
-        r = GetComponent<Rigidbody>();
-    }
-
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        r.AddForce(transform.forward * speed * Time.deltaTime, ForceMode.Impulse);
-        StartCoroutine(DestroyBullet());
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {        
-        if (collision.gameObject.CompareTag("devilbulldog"))
+        if (Input.GetKeyDown(KeyCode.J))
         {
-            Debug.Log("................................");
+            Instantiate(bulletPrefab, transform.position, transform.rotation, transform);
+            muzzleFlash.Play();
         }
-        Destroy(gameObject);        
     }
 
-    IEnumerator DestroyBullet()
-    {
-        yield return new WaitForSeconds(2);
-        Destroy(gameObject);
-       
-    }
+
 
 
 }

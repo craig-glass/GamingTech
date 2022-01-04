@@ -13,10 +13,12 @@ public class Ham : MonoBehaviour
     PlayerStateManager playerStateManager;
     GameObject devilBulldog;
     public bool pickUpHam = false;
+    BoxCollider collider;
     
 
     private void Start()
     {
+        collider = GetComponent<BoxCollider>();
         r = GetComponent<Rigidbody>();
         holdHam = GameObject.Find("HoldHam");
         hamThrowDirection = GameObject.Find("HamThrowDirection");
@@ -53,8 +55,9 @@ public class Ham : MonoBehaviour
         yield return new WaitForSeconds(0.75f);
         r.AddForce(transform.forward * -10f, ForceMode.Impulse);
         r.useGravity = true;
-        holdHam.transform.DetachChildren();
+        holdHam.transform.DetachChildren();        
         playerStateManager.hamIsPickedUp = false;
+
     }
 
     public void PickUpHam()
@@ -63,9 +66,10 @@ public class Ham : MonoBehaviour
         playerStateManager.hamIsPickedUp = true;
         r.useGravity = false;
         r.isKinematic = true;
-        
+        //Vector3()Vector3(0.00325000007,0.00138000003,-0.000429999985)
+        //Vector3()Vector3(0.353529423,190.275787,324.838135)
         transform.localPosition = new Vector3(0.00325000007f, 0.00138000003f, -0.000429999985f);
-        transform.localRotation = Quaternion.Euler(0.353529006f, 190.275787f, 324.838135f);
+        transform.localRotation = Quaternion.Euler(0.353529423f, 190.275787f, 324.838135f);
         
         r.velocity = Vector3.zero;
         playerStateManager.r.velocity = Vector3.zero;

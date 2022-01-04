@@ -9,12 +9,13 @@ public class BulldogSpawn : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Invoke("SpawnBulldog", Random.Range(5, 20));
+        Invoke("SpawnBulldog", Random.Range(1, 10));
     }
 
     void SpawnBulldog()
     {
         Instantiate(bulldogPrefab, transform.position, Quaternion.identity, this.gameObject.transform);
-        Invoke("SpawnBulldog", Random.Range(10, 20));
+        World1State.devilBulldogs.Add(bulldogPrefab);
+        //Invoke("SpawnBulldog", Random.Range(5, 30));
     }
 }
