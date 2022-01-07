@@ -13,6 +13,7 @@ public class World1State : GameBaseState
     public static int biggestChase;
     public static bool chaseTimerRun;
     public static float longestChase;
+    public static int points;
 
     public override void EnterState(GameManager state)
     {
@@ -34,6 +35,7 @@ public class World1State : GameBaseState
         biggestChase = 0;
         chaseTimerRun = false;
         longestChase = 0;
+        points = 0;
     }
 
     public override void UpdateState(GameManager state)

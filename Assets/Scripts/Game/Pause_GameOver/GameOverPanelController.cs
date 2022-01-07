@@ -24,7 +24,6 @@ public class GameOverPanelController : MonoBehaviour
     {
         if (GameManager.Instance.gameOver)
         {
-            Debug.Log("set game over panel to true");
             text.text = "Game Over";
             gameOverPanel.SetActive(true);
         }

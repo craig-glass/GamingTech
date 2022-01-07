@@ -187,17 +187,23 @@ public class DevilBulldogStateManager : MonoBehaviour
     IEnumerator PointScore()
     {
         Instantiate(pointsPrefab, transform.position, player.transform.rotation);
+        World1State.points += 10;
+        Points.textColor = pointsPrefab.GetComponentInChildren<TextMesh>().color;
         yield return new WaitForSeconds(2);
         Destroy(pointsPrefab);
     } 
     IEnumerator PointScoreKill()
     {
+        World1State.points += 100;
+        Points.textColor = pointsPrefabKill.GetComponentInChildren<TextMesh>().color;
         Instantiate(pointsPrefabKill, transform.position, player.transform.rotation);
         yield return new WaitForSeconds(2);
         Destroy(pointsPrefabKill);
     }
     public IEnumerator PointScoreChase()
     {
+        World1State.points += 20;
+        Points.textColor = pointsPrefabChase.GetComponentInChildren<TextMesh>().color;
         Instantiate(pointsPrefabChase, player.transform.position, player.transform.rotation);
         yield return new WaitForSeconds(2);
         Destroy(pointsPrefabChase);

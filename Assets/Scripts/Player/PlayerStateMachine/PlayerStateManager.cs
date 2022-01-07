@@ -220,7 +220,9 @@ public class PlayerStateManager : MonoBehaviour
         isDead = true;
         anim.SetTrigger("Death");
         collider.enabled = false;
-        yield return new WaitForSeconds(10);
+        yield return new WaitForSeconds(3);
+        GameManager.Instance.SwitchState(GameManager.Instance.GameOverState);
+        Time.timeScale = 0;
     }
 
 }

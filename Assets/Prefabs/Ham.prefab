@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6822952659289956516}
   - component: {fileID: 949665917445293545}
   - component: {fileID: 8172816260911410783}
-  m_Layer: 7
+  m_Layer: 2
   m_Name: Ham2/4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 1906040982028091627}
   - component: {fileID: 49732424129163884}
   - component: {fileID: 6092742470427250397}
-  m_Layer: 7
+  m_Layer: 2
   m_Name: Ham1/4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 8942882872286680558}
   - component: {fileID: 5458445560649082620}
   - component: {fileID: 2086511168294948175}
-  m_Layer: 7
+  m_Layer: 2
   m_Name: Ham3/4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -261,7 +261,7 @@ GameObject:
   - component: {fileID: 8037619165663300489}
   - component: {fileID: 8046366007204260529}
   - component: {fileID: 8735289363081415015}
-  m_Layer: 7
+  m_Layer: 2
   m_Name: Ham4/4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -361,9 +361,9 @@ GameObject:
   - component: {fileID: 4107313614800847455}
   - component: {fileID: 8070028435799129389}
   - component: {fileID: 4909631369931185138}
-  m_Layer: 7
+  m_Layer: 2
   m_Name: Ham
-  m_TagString: Untagged
+  m_TagString: ham
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -448,7 +448,7 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0

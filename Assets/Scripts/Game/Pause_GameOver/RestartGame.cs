@@ -8,7 +8,7 @@ public class RestartGame : MonoBehaviour
     Button restartButton;
 
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
         Debug.Log("entered restartbutton");
         restartButton = GetComponent<Button>();
