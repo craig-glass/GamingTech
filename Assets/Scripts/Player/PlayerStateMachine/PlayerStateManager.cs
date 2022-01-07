@@ -32,7 +32,7 @@ public class PlayerStateManager : MonoBehaviour
     float rotationForce = 70f;
     public float sprintSpeed;
     bool knockback = false;
-    HealthBar healthBar;
+    public HealthBar healthBar;
     bool isDead = false;
 
     // Effects
@@ -42,6 +42,7 @@ public class PlayerStateManager : MonoBehaviour
         r = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
         collider = GetComponent<CapsuleCollider>();
+        
     }
 
     // Start is called before the first frame update
@@ -49,7 +50,7 @@ public class PlayerStateManager : MonoBehaviour
     {
         currentState = IdleState;
         currentState.EnterState(this);
-        healthBar = GetComponent<HealthBar>();
+        
     }
 
     private void FixedUpdate()

@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
 
     public SceneManager sceneManager;
     public GameObject player;
+    public PlayerStateManager playerStateManager;
 
     // Setting game parameters
     public int lives = 3;
@@ -70,6 +71,7 @@ public class GameManager : MonoBehaviour
     public AudioSource trampolineJump;
 
     public GameObject bulldogCount;
+    public GameObject pointsPrefabChaseLength;
 
     private void Awake()
     {
@@ -193,4 +195,12 @@ public class GameManager : MonoBehaviour
     {
         countdownTime = 60;
     }
+
+    public IEnumerator PointScoreChaseLength()
+    {
+        Instantiate(pointsPrefabChaseLength, player.transform.position, player.transform.rotation);
+        yield return new WaitForSeconds(2);
+        Destroy(pointsPrefabChaseLength);
+    }
+
 }

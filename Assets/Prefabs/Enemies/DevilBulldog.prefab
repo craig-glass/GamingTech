@@ -4702,6 +4702,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hamStateManager: {fileID: 0}
+  playerStateManager: {fileID: 0}
   player: {fileID: 0}
   agent: {fileID: 8744035046361828234}
   anim: {fileID: 8744035046361828228}
@@ -4716,8 +4717,13 @@ MonoBehaviour:
   chase: 0
   eat: 0
   timeInState: 0
-  timeLeft: 20
   isDead: 0
+  bloodPrefab: {fileID: 1000013355911406, guid: d32aa916f50cac94db11e6f19821a58f, type: 3}
+  pointsPrefab: {fileID: 4890159346141382342, guid: 2348f2ad1f9261744966050010cd572a, type: 3}
+  pointsPrefabKill: {fileID: 5812005694079876049, guid: 266809eaf597caa4a9b9871fe3c3647a, type: 3}
+  pointsPrefabChase: {fileID: 6668564477370363916, guid: 2aa7cf534230b6e46bb8443d5bd683e0, type: 3}
+  pointsPrefabChaseMax: {fileID: 7916513549562565076, guid: 846bc082bb1652546ba94df9ee144989, type: 3}
+  pointsPrefabChaseLength: {fileID: 3931161480595012728, guid: 0cc88e7eef03cf8458b18b02a95c7701, type: 3}
 --- !u!195 &8744035046361828234
 NavMeshAgent:
   m_ObjectHideFlags: 0

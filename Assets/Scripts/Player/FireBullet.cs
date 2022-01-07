@@ -5,8 +5,6 @@ using UnityEngine;
 public class FireBullet : MonoBehaviour
 {
     [SerializeField]
-    float speed = 300f;
-    [SerializeField]
     public GameObject bulletPrefab;
     public ParticleSystem muzzleFlash;
 

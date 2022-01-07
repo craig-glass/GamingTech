@@ -16,6 +16,7 @@ TagManager:
   - Bench
   - Bin
   - BulldogCountText
+  - PlayerHealth
   layers:
   - Default
   - TransparentFX

@@ -13,11 +13,12 @@ public class HealthBar : MonoBehaviour
 
     private void Awake()
     {
-        healthBar = GetComponentInChildren<Slider>();
+        
     }
     // Start is called before the first frame update
     void Start()
     {
+        healthBar = GetComponentInChildren<Slider>();
         healthBar.minValue = minHealth;
         health = maxHealth;
     }

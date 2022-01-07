@@ -2034,7 +2034,9 @@ MonoBehaviour:
   target: {fileID: 0}
   targetTag: Stand
   duration: 3
-  preConditions: []
+  preConditions:
+  - key: FreeStand
+    value: 1
   afterEffects:
   - key: gotFood
     value: 0

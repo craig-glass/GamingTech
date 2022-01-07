@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class BulldogCountText : MonoBehaviour
+public class BulldogKillCount : MonoBehaviour
 {
     public TMP_Text bulldogcountText;
 
@@ -16,6 +16,6 @@ public class BulldogCountText : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        bulldogcountText.text = "Bulldog Count: " + World1State.devilBulldogsChasing.Count;
+        bulldogcountText.text = "Kill Count\n" + World1State.devilBulldogsKillCount;
     }
 }

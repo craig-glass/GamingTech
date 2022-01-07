@@ -38,6 +38,12 @@ public class DevilBulldogStateManager : MonoBehaviour
     
     private HealthBar healthBar;
     public bool isDead = false;
+    public GameObject bloodPrefab;
+    public GameObject pointsPrefab;
+    public GameObject pointsPrefabKill;
+    public GameObject pointsPrefabChase;
+    public GameObject pointsPrefabChaseMax;
+    public GameObject pointsPrefabChaseLength;
 
 
     private void Awake()
@@ -73,9 +79,14 @@ public class DevilBulldogStateManager : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("bullet"))
         {
+            var contact = collision.contacts[0];
+            var rot = Quaternion.FromToRotation(Vector3.up, contact.normal);
+
+            
             healthBar.DeductHealth();
             if (healthBar.health <= 0)
             {
+                StartCoroutine("PointScoreKill");
                 if (currentState == HuntState)
                     World1State.devilBulldogsChasing.Remove(gameObject);
                 StartCoroutine("Die");
@@ -83,6 +94,8 @@ public class DevilBulldogStateManager : MonoBehaviour
             else
             {
                 anim.SetTrigger("hit");
+                StartCoroutine("PointScore");
+                Instantiate(bloodPrefab, contact.point, rot, gameObject.transform);
                 if (currentState != HuntState)
                     SwitchState(HuntState);
             }
@@ -140,6 +153,7 @@ public class DevilBulldogStateManager : MonoBehaviour
 
     IEnumerator Die()
     {
+        World1State.devilBulldogsKillCount++;
         agent.ResetPath();
         collider.enabled = false;
         isDead = true;
@@ -169,4 +183,30 @@ public class DevilBulldogStateManager : MonoBehaviour
 
         
     }
+
+    IEnumerator PointScore()
+    {
+        Instantiate(pointsPrefab, transform.position, player.transform.rotation);
+        yield return new WaitForSeconds(2);
+        Destroy(pointsPrefab);
+    } 
+    IEnumerator PointScoreKill()
+    {
+        Instantiate(pointsPrefabKill, transform.position, player.transform.rotation);
+        yield return new WaitForSeconds(2);
+        Destroy(pointsPrefabKill);
+    }
+    public IEnumerator PointScoreChase()
+    {
+        Instantiate(pointsPrefabChase, player.transform.position, player.transform.rotation);
+        yield return new WaitForSeconds(2);
+        Destroy(pointsPrefabChase);
+    }
+    public IEnumerator PointScoreChaseMax()
+    {
+        Instantiate(pointsPrefabChaseMax, player.transform.position, player.transform.rotation);
+        yield return new WaitForSeconds(2);
+        Destroy(pointsPrefabChaseMax);
+    }
+    
 }
